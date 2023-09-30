@@ -1,0 +1,107 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-main: (
+    50 : #e4eeed,
+    100 : #bdd4d1,
+    200 : #91b7b2,
+    300 : #649a93,
+    400 : #43857c,
+    500 : #226f65,
+    600 : #1e675d,
+    700 : #195c53,
+    800 : #145249,
+    900 : #0c4037,
+    A100 : #79ffe7,
+    A200 : #46ffdd,
+    A400 : #13ffd4,
+    A700 : #00f8cb,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-complementary: (
+    50 : #eee4e6,
+    100 : #d4bdc0,
+    200 : #b79196,
+    300 : #9a646c,
+    400 : #85434d,
+    500 : #6f222d,
+    600 : #671e28,
+    700 : #5c1922,
+    800 : #52141c,
+    900 : #400c11,
+    A100 : #ff7982,
+    A200 : #ff4652,
+    A400 : #ff1323,
+    A700 : #f80011,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+
+
+
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$car-value-estimator-ui-primary: mat.define-palette($md-main);
+$car-value-estimator-ui-accent: mat.define-palette($md-complementary);
+
+// The warn palette is optional (defaults to red).
+$car-value-estimator-ui-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$car-value-estimator-ui-theme: mat.define-light-theme((
+  color: (
+    primary: $car-value-estimator-ui-primary,
+    accent: $car-value-estimator-ui-accent,
+    warn: $car-value-estimator-ui-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($car-value-estimator-ui-theme);
+
