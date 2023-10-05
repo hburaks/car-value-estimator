@@ -12,6 +12,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
 import { StepperComponent } from './body/stepper/stepper.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatIconModule,
     MatStepperModule,
     StepperComponent,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
