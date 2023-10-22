@@ -22,11 +22,16 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Year</mat-label>
-        <input matInput type="number" placeholder="0" formControlName="year">
+        <input matInput type="number" placeholder="0" formControlName="year" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Distance</mat-label>
-        <input matInput type="number" placeholder="0" formControlName="distance">
+        <input
+          matInput
+          type="number"
+          placeholder="0"
+          formControlName="distance"
+        />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Color</mat-label>
@@ -62,19 +67,21 @@
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
+        <input
+          type="button"
+          value="Send Car"
+          (click)="sendCar(carEssentialInfo.value)"
+        />
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
     <form class="form" [formGroup]="secondFormGroup">
       <ng-template matStepLabel>Output</ng-template>
-      <!--<mat-form-field>
-        <mat-label>Model</mat-label>
-        <input matInput formControlName="secondCtrl" required/>
-      </mat-form-field>-->
+      <app-card></app-card>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperNext>Submit</button>
       </div>
     </form>
   </mat-step>
