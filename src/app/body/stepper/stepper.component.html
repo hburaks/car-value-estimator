@@ -6,7 +6,7 @@
 >
   <mat-step [stepControl]="carEssentialInfo">
     <form class="form" [formGroup]="carEssentialInfo">
-      <ng-template matStepLabel>Car Info</ng-template>
+      <ng-template class="header" matStepLabel>Car Info</ng-template>
       <mat-form-field>
         <mat-label>Make</mat-label>
         <mat-select formControlName="make">
@@ -34,12 +34,6 @@
         />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Color</mat-label>
-        <mat-select formControlName="color">
-          <mat-option value="red">Red</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
         <mat-label>Transmission</mat-label>
         <mat-select formControlName="transmission">
           <mat-option value="auto">Auto</mat-option>
@@ -47,22 +41,10 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Drivetrain</mat-label>
-        <mat-select formControlName="drivetrain">
-          <mat-option value="awd">Awd</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Engine</mat-label>
-        <mat-select formControlName="engine">
-          <mat-option value="engine1">Multi-jet 1.4</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Door</mat-label>
-        <mat-select formControlName="door">
-          <mat-option value="one">One</mat-option>
-          <mat-option value="two">Two</mat-option>
+        <mat-label>Fuel Type</mat-label>
+        <mat-select formControlName="fuel_type">
+          <mat-option value="auto">Auto</mat-option>
+          <mat-option value="manuel">Manuel</mat-option>
         </mat-select>
       </mat-form-field>
       <div>
@@ -70,14 +52,14 @@
         <input
           type="button"
           value="Send Car"
-          (click)="sendCar(carEssentialInfo.value)"
+          (click)="sendCar(car)"
         />
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form class="form" [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Output</ng-template>
+  <mat-step>
+    <form class="form">
+      <ng-template class="header" matStepLabel>Output</ng-template>
       <app-card></app-card>
       <div>
         <button mat-button matStepperPrevious>Back</button>
@@ -86,7 +68,7 @@
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
+    <ng-template class="header" matStepLabel>Done</ng-template>
     <p>You are now done.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
