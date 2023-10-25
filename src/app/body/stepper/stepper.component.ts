@@ -96,13 +96,10 @@ export class StepperComponent implements OnInit {
       )
       .subscribe((res) => {
         this.cars = Object.values(res);
-        console.log(res)
-        console.log("+++")
-        console.log(this.cars)
-        this.cars.map((t) => console.log(JSON.stringify(t)));
       });
   }
-  setOneCarToInputs(){
+  setOneCarToInputs() {
+    this.getCars();
     const lastCar = this.cars[this.cars.length - 1];
     this.carEssentialInfo.patchValue({
       distance: lastCar.distance,
@@ -110,7 +107,7 @@ export class StepperComponent implements OnInit {
       make: lastCar.make,
       model: lastCar.model,
       transmission: lastCar.transmission,
-      year: lastCar.year
+      year: lastCar.year,
     });
   }
 }
