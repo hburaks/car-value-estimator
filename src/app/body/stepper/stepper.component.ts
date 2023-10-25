@@ -39,7 +39,7 @@ import { Car } from 'src/app/interfaces/car';
 })
 export class StepperComponent implements OnInit {
   carEssentialInfo = this._formBuilder.group({
-    distance: ['0', Validators.required],
+    distance: [0, Validators.required],
     fuel_type: ['', Validators.required],
     make: ['', Validators.required],
     model: ['', Validators.required],
@@ -49,7 +49,7 @@ export class StepperComponent implements OnInit {
   car: Car = {
     make: '',
     model: '',
-    year: 0,
+    year: new Date().getFullYear(),
     distance: 0,
     transmission: '',
     fuel_type: '',
@@ -60,12 +60,12 @@ export class StepperComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     carsService: CarsService,
-    private http: HttpClient,
+    private http: HttpClient
   ) {
     // this.cars = carsService.getCars();
   }
 
-  cars: Array<any> = [];
+  cars: Array<Car> = [];
   ngOnInit() {
     this.carEssentialInfo.valueChanges.subscribe((value) => {
       console.log('carEssentialInfo form value:', value);
@@ -89,13 +89,28 @@ export class StepperComponent implements OnInit {
       )
       .subscribe((res) => console.log(res));
   }
-  getCars(){
+  getCars() {
     this.http
       .get<Car[]>(
         'https://car-estimator-4fe10-default-rtdb.europe-west1.firebasedatabase.app/cars.json'
-      ).subscribe((res) => {
+      )
+      .subscribe((res) => {
         this.cars = Object.values(res);
-        this.cars.map((t) => console.log(t));
+        console.log(res)
+        console.log("+++")
+        console.log(this.cars)
+        this.cars.map((t) => console.log(JSON.stringify(t)));
       });
+  }
+  setOneCarToInputs(){
+    const lastCar = this.cars[this.cars.length - 1];
+    this.carEssentialInfo.patchValue({
+      distance: lastCar.distance,
+      fuel_type: lastCar.fuel_type,
+      make: lastCar.make,
+      model: lastCar.model,
+      transmission: lastCar.transmission,
+      year: lastCar.year
+    });
   }
 }

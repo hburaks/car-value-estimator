@@ -49,11 +49,8 @@
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
-        <input
-          type="button"
-          value="Send Car"
-          (click)="sendCar(car)"
-        />
+        <input type="button" value="Send Car" (click)="sendCar(car)" />
+        <input type="button" value="Get Car" (click)="setOneCarToInputs()" />
       </div>
     </form>
   </mat-step>
