@@ -4,46 +4,68 @@
   [linear]="isLinear"
   #stepper
 >
-  <mat-step [stepControl]="firstFormGroup">
-    <form class="form" [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Brand</ng-template>
+  <mat-step [stepControl]="carEssentialInfo">
+    <form class="form" [formGroup]="carEssentialInfo">
+      <ng-template class="header" matStepLabel>Car Info</ng-template>
       <mat-form-field>
-        <mat-label>Brand</mat-label>
-        <input matInput formControlName="firstCtrl" required />
+        <mat-label>Make</mat-label>
+        <mat-select formControlName="make">
+          <mat-option value="volvo">Volvo</mat-option>
+          <mat-option value="seat">Seat</mat-option>
+        </mat-select>
       </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form class="form" [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Give the model</ng-template>
       <mat-form-field>
         <mat-label>Model</mat-label>
-        <input matInput formControlName="secondCtrl" required />
+        <mat-select formControlName="model">
+          <mat-option value="cx60">cx60</mat-option>
+        </mat-select>
       </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form class="form" [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Year</ng-template>
       <mat-form-field>
-        <mat-label>Model Year</mat-label>
-        <input matInput formControlName="secondCtrl" required />
+        <mat-label>Year</mat-label>
+        <input matInput type="number" placeholder="0" formControlName="year" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Distance</mat-label>
+        <input
+          matInput
+          type="number"
+          placeholder="0"
+          formControlName="distance"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Transmission</mat-label>
+        <mat-select formControlName="transmission">
+          <mat-option value="auto">Auto</mat-option>
+          <mat-option value="manuel">Manuel</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Fuel Type</mat-label>
+        <mat-select formControlName="fuel_type">
+          <mat-option value="auto">Auto</mat-option>
+          <mat-option value="manuel">Manuel</mat-option>
+        </mat-select>
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
+        <input type="button" value="Send Car" (click)="sendCar(car)" />
+        <input type="button" value="Get Car" (click)="setOneCarToInputs()" />
       </div>
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
+    <form class="form">
+      <ng-template class="header" matStepLabel>Output</ng-template>
+      <app-card></app-card>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Submit</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template class="header" matStepLabel>Done</ng-template>
     <p>You are now done.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
