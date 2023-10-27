@@ -1,42 +1,27 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Car } from '../interfaces/car';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarsService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getCars() {
-    const cars: Array<any> = [
-      {
-        city_mpg: 18,
-        class: 'midsize car',
-        combination_mpg: 21,
-        cylinders: 4,
-        displacement: 2.2,
-        drive: 'fwd',
-        fuel_type: 'gas',
-        highway_mpg: 26,
-        make: 'toyota',
-        model: 'camry',
-        transmission: 'a',
-        year: 1993,
-      },
-      {
-        city_mpg: 19,
-        class: 'midsize car',
-        combination_mpg: 22,
-        cylinders: 4,
-        displacement: 2.2,
-        drive: 'fwd',
-        fuel_type: 'gas',
-        highway_mpg: 27,
-        make: 'toyota',
-        model: 'camry',
-        transmission: 'm',
-        year: 1993,
-      },
-    ];
-    return cars;
+    return this.http.get<Car[]>(
+      'https://car-estimator-4fe10-default-rtdb.europe-west1.firebasedatabase.app/cars.json'
+    );
+  }
+
+  sendCar(car: Car) {
+    const headers = new HttpHeaders({ dev: 'hbDev' });
+    this.http.post(
+      'https://car-estimator-4fe10-default-rtdb.europe-west1.firebasedatabase.app/cars.json',
+      car,
+      { headers: headers }
+    ).subscribe((res)=> {
+      console.log("Hey you managed it!! Here is the sended data: " + res)
+    });
   }
 }

@@ -59,7 +59,7 @@ export class StepperComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    carsService: CarsService,
+    private carsService: CarsService,
     private http: HttpClient
   ) {
     // this.cars = carsService.getCars();
@@ -76,27 +76,15 @@ export class StepperComponent implements OnInit {
       this.car.transmission = value.transmission ?? '';
       this.car.fuel_type = value.fuel_type ?? '';
     });
-    this.getCars();
   }
 
   sendCar(car: Car) {
-    const headers = new HttpHeaders({ dev: 'hbDev' });
-    this.http
-      .post(
-        'https://car-estimator-4fe10-default-rtdb.europe-west1.firebasedatabase.app/cars.json',
-        car,
-        { headers: headers }
-      )
-      .subscribe((res) => console.log(res));
+    this.carsService.sendCar(car)
   }
   getCars() {
-    this.http
-      .get<Car[]>(
-        'https://car-estimator-4fe10-default-rtdb.europe-west1.firebasedatabase.app/cars.json'
-      )
-      .subscribe((res) => {
-        this.cars = Object.values(res);
-      });
+     this.carsService.getCars().subscribe((res) => {
+      this.cars = Object.values(res);
+    });;
   }
   setOneCarToInputs() {
     this.getCars();
