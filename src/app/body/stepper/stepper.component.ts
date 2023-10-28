@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   Validators,
@@ -13,9 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { CardComponent } from './card/card.component';
 import { CarsService } from 'src/app/services/cars.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs';
 import { Car } from 'src/app/interfaces/car';
+import { Observable } from 'rxjs';
 
 /**
  * @title Stepper horizontal
@@ -39,7 +38,7 @@ import { Car } from 'src/app/interfaces/car';
 })
 export class StepperComponent implements OnInit {
   carEssentialInfo = this._formBuilder.group({
-    distance: [0, Validators.required],
+    distance: [parseInt(''), Validators.required],
     fuel_type: ['', Validators.required],
     make: ['', Validators.required],
     model: ['', Validators.required],
@@ -47,35 +46,34 @@ export class StepperComponent implements OnInit {
     year: [new Date().getFullYear(), Validators.required],
   });
   car: Car = {
+    distance: parseInt(''),
+    fuel_type: '',
     make: '',
     model: '',
-    year: new Date().getFullYear(),
-    distance: 0,
     transmission: '',
-    fuel_type: '',
+    year: new Date().getFullYear(),
   };
-
   isLinear = true;
+  cars: Car[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
     private carsService: CarsService
   ) {}
 
-  cars: Array<Car> = [];
   ngOnInit() {
+    this.getCars();
     this.mapFormValuesToCar();
   }
 
   mapFormValuesToCar() {
     this.carEssentialInfo.valueChanges.subscribe((value) => {
-      console.log('value changed');
+      this.car.distance = Number(value.distance) ?? null;
+      this.car.fuel_type = value.fuel_type ?? '';
       this.car.make = value.make ?? '';
       this.car.model = value.model ?? '';
       this.car.year = Number(value.year) ?? 0;
-      this.car.distance = Number(value.distance) ?? 0;
       this.car.transmission = value.transmission ?? '';
-      this.car.fuel_type = value.fuel_type ?? '';
     });
   }
 
@@ -85,6 +83,7 @@ export class StepperComponent implements OnInit {
   getCars() {
     this.carsService.getCars().subscribe((res) => {
       this.cars = Object.values(res);
+      this.setOneCarToInputs();
     });
   }
   patchCarValue(lastCar: Car) {
@@ -100,9 +99,7 @@ export class StepperComponent implements OnInit {
     }
   }
   setOneCarToInputs() {
-    this.getCars();
     const lastCar = this.cars[this.cars.length - 1];
     this.patchCarValue(lastCar);
   }
-  //NEDEN İKİNCİ BASIŞTA OLUYOR TEKTE OLMUYOR?
 }
