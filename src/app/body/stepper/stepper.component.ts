@@ -52,6 +52,8 @@ export class StepperComponent implements OnInit {
     model: '',
     transmission: '',
     year: new Date().getFullYear(),
+    estimatedValue: parseInt(''),
+    expectedValue: parseInt(''),
   };
   isLinear = true;
   cars: Car[] = [];
@@ -84,6 +86,8 @@ export class StepperComponent implements OnInit {
     this.carsService.getCars().subscribe((res) => {
       this.cars = Object.values(res);
       this.setOneCarToInputs();
+      console.log('am i?');
+      console.log(res);
     });
   }
   patchCarValue(lastCar: Car) {
@@ -103,3 +107,8 @@ export class StepperComponent implements OnInit {
     this.patchCarValue(lastCar);
   }
 }
+
+// automatically filling, we need to get it and send to card
+// create a card
+// we need a clear button
+// creae

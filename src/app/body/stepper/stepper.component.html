@@ -16,9 +16,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Model</mat-label>
-        <mat-select formControlName="model">
-          <mat-option value="cx60">cx60</mat-option>
-        </mat-select>
+        <input matInput type="string" placeholder="" formControlName="model" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Year</mat-label>
@@ -43,14 +41,15 @@
       <mat-form-field>
         <mat-label>Fuel Type</mat-label>
         <mat-select formControlName="fuel_type">
-          <mat-option value="auto">Auto</mat-option>
-          <mat-option value="manuel">Manuel</mat-option>
+          <mat-option value="diesel">Diesel</mat-option>
+          <mat-option value="gasoline">Gasoline</mat-option>
+          <mat-option value="lpg">Lpg</mat-option>
         </mat-select>
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
         <input type="button" value="Send Car" (click)="sendCar(car)" />
-        <input type="button" value="Get Car" (click)="setOneCarToInputs()" />
+        <input type="button" value="Get Car" (click)="getCars()" />
       </div>
     </form>
   </mat-step>

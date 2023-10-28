@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { Car } from 'src/app/interfaces/car';
+import { MatListModule } from '@angular/material/list';
 
 /**
  * @title Card with footer
@@ -18,6 +19,8 @@ import { Car } from 'src/app/interfaces/car';
     MatDividerModule,
     MatButtonModule,
     MatProgressBarModule,
+    MatListModule,
+    MatDividerModule,
   ],
 })
 export class CardComponent {

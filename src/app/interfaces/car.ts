@@ -5,4 +5,6 @@ export interface Car {
   model: string;
   transmission: string;
   year: number;
+  estimatedValue: number;
+  expectedValue: number;
 }
