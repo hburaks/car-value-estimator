@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   Validators,
@@ -59,16 +59,17 @@ export class StepperComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private carsService: CarsService,
-    private http: HttpClient
-  ) {
-    // this.cars = carsService.getCars();
-  }
+    private carsService: CarsService
+  ) {}
 
   cars: Array<Car> = [];
   ngOnInit() {
+    this.mapFormValuesToCar();
+  }
+
+  mapFormValuesToCar() {
     this.carEssentialInfo.valueChanges.subscribe((value) => {
-      console.log('carEssentialInfo form value:', value);
+      console.log('value changed');
       this.car.make = value.make ?? '';
       this.car.model = value.model ?? '';
       this.car.year = Number(value.year) ?? 0;
@@ -79,23 +80,29 @@ export class StepperComponent implements OnInit {
   }
 
   sendCar(car: Car) {
-    this.carsService.sendCar(car)
+    this.carsService.sendCar(car);
   }
   getCars() {
-     this.carsService.getCars().subscribe((res) => {
+    this.carsService.getCars().subscribe((res) => {
       this.cars = Object.values(res);
-    });;
+    });
+  }
+  patchCarValue(lastCar: Car) {
+    if (lastCar) {
+      this.carEssentialInfo.patchValue({
+        distance: lastCar.distance,
+        fuel_type: lastCar.fuel_type,
+        make: lastCar.make,
+        model: lastCar.model,
+        transmission: lastCar.transmission,
+        year: lastCar.year,
+      });
+    }
   }
   setOneCarToInputs() {
     this.getCars();
     const lastCar = this.cars[this.cars.length - 1];
-    this.carEssentialInfo.patchValue({
-      distance: lastCar.distance,
-      fuel_type: lastCar.fuel_type,
-      make: lastCar.make,
-      model: lastCar.model,
-      transmission: lastCar.transmission,
-      year: lastCar.year,
-    });
+    this.patchCarValue(lastCar);
   }
+  //NEDEN İKİNCİ BASIŞTA OLUYOR TEKTE OLMUYOR?
 }

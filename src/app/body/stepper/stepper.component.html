@@ -57,7 +57,7 @@
   <mat-step>
     <form class="form">
       <ng-template class="header" matStepLabel>Output</ng-template>
-      <app-card></app-card>
+      <app-card [carChild]="car"></app-card>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Submit</button>
