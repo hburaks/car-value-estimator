@@ -7,68 +7,134 @@
   <mat-step [stepControl]="carEssentialInfo">
     <form class="form" [formGroup]="carEssentialInfo">
       <ng-template class="header" matStepLabel>Car Info</ng-template>
-      <mat-form-field>
-        <mat-label>Make</mat-label>
-        <mat-select formControlName="make">
-          <mat-option value="volvo">Volvo</mat-option>
-          <mat-option value="seat">Seat</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Model</mat-label>
-        <input matInput type="string" placeholder="" formControlName="model" />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Year</mat-label>
-        <input matInput type="number" placeholder="0" formControlName="year" />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Distance</mat-label>
-        <input
-          matInput
-          type="number"
-          placeholder="0"
-          formControlName="distance"
-        />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Transmission</mat-label>
-        <mat-select formControlName="transmission">
-          <mat-option value="auto">Auto</mat-option>
-          <mat-option value="manuel">Manuel</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Fuel Type</mat-label>
-        <mat-select formControlName="fuel_type">
-          <mat-option value="diesel">Diesel</mat-option>
-          <mat-option value="gasoline">Gasoline</mat-option>
-          <mat-option value="lpg">Lpg</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <mat-card class="input-card">
+        <mat-form-field>
+          <mat-label>Make</mat-label>
+          <input matInput type="string" placeholder="" formControlName="make" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Model</mat-label>
+          <input
+            matInput
+            type="string"
+            placeholder=""
+            formControlName="model"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Year</mat-label>
+          <input
+            matInput
+            type="number"
+            placeholder="0"
+            formControlName="year"
+            [min]="1960"
+            [max]="currentYear"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Distance</mat-label>
+          <input
+            matInput
+            type="number"
+            placeholder="0"
+            formControlName="distance"
+            [min]="0"
+            [max]="999999"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Transmission</mat-label>
+          <mat-select formControlName="transmission">
+            <mat-option value="auto">Auto</mat-option>
+            <mat-option value="manuel">Manuel</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Fuel Type</mat-label>
+          <mat-select formControlName="fuel_type">
+            <mat-option value="diesel">Diesel</mat-option>
+            <mat-option value="gasoline">Gasoline</mat-option>
+            <mat-option value="lpg">Lpg</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card>
       <div>
+        <button mat-button (click)="stepper.reset()">Clear</button>
         <button mat-button matStepperNext>Next</button>
-        <input type="button" value="Send Car" (click)="sendCar(car)" />
-        <input type="button" value="Get Car" (click)="getCars()" />
       </div>
     </form>
   </mat-step>
   <mat-step>
     <form class="form">
       <ng-template class="header" matStepLabel>Output</ng-template>
-      <app-card [carChild]="car"></app-card>
+      <app-card
+        class="card"
+        [carChild]="car"
+        (emitExpectedCarValue)="addExpectedValue($event)"
+      ></app-card>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Submit</button>
+        <button mat-button matStepperNext (click)="sendCar()">Submit</button>
       </div>
     </form>
   </mat-step>
   <mat-step>
     <ng-template class="header" matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
+    <app-card-estimated class="card" [carChild]="car"></app-card-estimated>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+    <div>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="make">
+          <th mat-header-cell *matHeaderCellDef>Make</th>
+          <td mat-cell *matCellDef="let element">{{ element.make }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="model">
+          <th mat-header-cell *matHeaderCellDef>Model</th>
+          <td mat-cell *matCellDef="let element">{{ element.model }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef>Year</th>
+          <td mat-cell *matCellDef="let element">{{ element.year }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="transmission">
+          <th mat-header-cell *matHeaderCellDef>Transmission</th>
+          <td mat-cell *matCellDef="let element">{{ element.transmission }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="distance">
+          <th mat-header-cell *matHeaderCellDef>Distance</th>
+          <td mat-cell *matCellDef="let element">{{ element.distance }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fuel_type">
+          <th mat-header-cell *matHeaderCellDef>Fuel Type</th>
+          <td mat-cell *matCellDef="let element">{{ element.fuel_type }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="expectedValue">
+          <th mat-header-cell *matHeaderCellDef>Excpected Value</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.expectedValue }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="estimatedValue">
+          <th mat-header-cell *matHeaderCellDef>Estimated Value</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.estimatedValue }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
     </div>
   </mat-step>
 </mat-stepper>

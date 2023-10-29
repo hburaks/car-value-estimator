@@ -2,8 +2,23 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  max-width: 600px;
-  width: 100%;
+
   margin: 0 auto;
 }
 
+.card {
+  margin: 16px;
+}
+
+.input-card {
+  max-width: 600px;
+  width: 100%;
+  margin: 16px;
+  padding: 16px;
+}
+
+table {
+  margin-top: 16px;
+  width: 100%;
+  border-radius: 5px;
+}

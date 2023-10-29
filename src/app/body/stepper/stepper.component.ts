@@ -14,7 +14,9 @@ import { MatCardModule } from '@angular/material/card';
 import { CardComponent } from './card/card.component';
 import { CarsService } from 'src/app/services/cars.service';
 import { Car } from 'src/app/interfaces/car';
-import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { CardEstimatedComponent } from './card-estimated/card-estimated.component';
+import { MatTableModule } from '@angular/material/table';
 
 /**
  * @title Stepper horizontal
@@ -31,32 +33,57 @@ import { Observable } from 'rxjs';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTableModule,
     MatSelectModule,
     MatCardModule,
     CardComponent,
+    CardEstimatedComponent,
+    CommonModule,
   ],
 })
 export class StepperComponent implements OnInit {
   carEssentialInfo = this._formBuilder.group({
-    distance: [parseInt(''), Validators.required],
+    distance: [
+      parseInt(''),
+      [Validators.required, Validators.min(0), Validators.max(999999)],
+    ],
     fuel_type: ['', Validators.required],
     make: ['', Validators.required],
     model: ['', Validators.required],
     transmission: ['', Validators.required],
-    year: [new Date().getFullYear(), Validators.required],
+    year: [
+      new Date().getFullYear(),
+      [
+        Validators.required,
+        Validators.min(1960),
+        Validators.max(new Date().getFullYear()),
+      ],
+    ],
   });
   car: Car = {
     distance: parseInt(''),
+    estimatedValue: parseInt(''),
+    expectedValue: 0,
     fuel_type: '',
     make: '',
     model: '',
     transmission: '',
     year: new Date().getFullYear(),
-    estimatedValue: parseInt(''),
-    expectedValue: parseInt(''),
   };
   isLinear = true;
   cars: Car[] = [];
+  currentYear: number = new Date().getFullYear();
+  displayedColumns: string[] = [
+    'make',
+    'model',
+    'year',
+    'transmission',
+    'distance',
+    'fuel_type',
+    'expectedValue',
+    'estimatedValue',
+  ];
+  dataSource = this.cars;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -64,8 +91,8 @@ export class StepperComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getCars();
     this.mapFormValuesToCar();
+    this.getCar();
   }
 
   mapFormValuesToCar() {
@@ -79,17 +106,26 @@ export class StepperComponent implements OnInit {
     });
   }
 
-  sendCar(car: Car) {
-    this.carsService.sendCar(car);
-  }
-  getCars() {
+  getCar() {
     this.carsService.getCars().subscribe((res) => {
-      this.cars = Object.values(res);
-      this.setOneCarToInputs();
-      console.log('am i?');
-      console.log(res);
+      if (Object.values(res)) {
+        this.cars = Object.values(res);
+        this.dataSource = this.cars;
+      }
     });
   }
+  sendCar() {
+    this.car.estimatedValue = 100000;
+    this.carsService.sendCar(this.car).subscribe((res) => {
+      this.getCar();
+    });
+  }
+
+  setOneCarToInputs() {
+    const lastCar = this.cars[this.cars.length - 1];
+    this.patchCarValue(lastCar);
+  }
+
   patchCarValue(lastCar: Car) {
     if (lastCar) {
       this.carEssentialInfo.patchValue({
@@ -102,13 +138,27 @@ export class StepperComponent implements OnInit {
       });
     }
   }
-  setOneCarToInputs() {
-    const lastCar = this.cars[this.cars.length - 1];
-    this.patchCarValue(lastCar);
+
+  clearInputs() {
+    this.carEssentialInfo.value.distance = parseInt('');
+    this.carEssentialInfo.value.fuel_type = '';
+    this.carEssentialInfo.value.make = '';
+    this.carEssentialInfo.value.model = '';
+    this.carEssentialInfo.value.transmission = '';
+    this.carEssentialInfo.value.year = parseInt('');
+  }
+  clearThisCar() {
+    this.car.distance = parseInt('');
+    this.car.estimatedValue = parseInt('');
+    this.car.expectedValue = 0;
+    this.car.fuel_type = '';
+    this.car.make = '';
+    this.car.model = '';
+    this.car.transmission = '';
+    this.car.year = new Date().getFullYear();
+  }
+
+  addExpectedValue(expectedValue: number) {
+    this.car.expectedValue = expectedValue;
   }
 }
-
-// automatically filling, we need to get it and send to card
-// create a card
-// we need a clear button
-// creae

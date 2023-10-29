@@ -16,11 +16,11 @@ export class CarsService {
 
   sendCar(car: Car) {
     const headers = new HttpHeaders({ dev: 'hbDev' });
-    this.http.post(
-      'https://car-estimator-4fe10-default-rtdb.europe-west1.firebasedatabase.app/cars.json',
-      car,
-      { headers: headers }
-    ).subscribe((res) => {
-    })
+    return this.http
+      .post(
+        'https://car-estimator-4fe10-default-rtdb.europe-west1.firebasedatabase.app/cars.json',
+        car,
+        { headers: headers }
+      )
   }
 }

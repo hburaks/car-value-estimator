@@ -16,6 +16,33 @@
         <mat-list-item
           ><b>Transmission:</b> {{ carChild.transmission }}</mat-list-item
         >
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <div *ngIf="expectedValueVisible" class="input-container">
+            <label for="expectedValue" class="flex-item"
+              >Expected Price:
+            </label>
+            <input
+              class="flex-item"
+              type="number"
+              id="expectedValue"
+              placeholder="*Not compulsory"
+              [min]="100000"
+              [max]="10000000"
+              #expectedValue
+            />
+            <button
+              class="flex-item"
+              (click)="sendCarWithExpected(expectedValue.value)"
+            >
+              Enter Price
+            </button>
+          </div>
+          <div *ngIf="!expectedValueVisible" class="input-container">
+            <p><b>You have submited the expected price as {{expectedValue}}</b></p>
+          </div>
+
+        </mat-list-item>
       </mat-list>
     </mat-card-content>
     <mat-card-footer>
@@ -23,3 +50,6 @@
     </mat-card-footer>
   </mat-card>
 </div>
+<!-- <label for="item-input">Add an item:</label>
+<input type="text" id="item-input" #newItem>
+<button type="button" (click)="addNewItem(newItem.value)">Add to parent's list</button> -->

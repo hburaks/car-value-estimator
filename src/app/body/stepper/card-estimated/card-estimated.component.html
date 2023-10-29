@@ -1,0 +1,33 @@
+<div class="center-card">
+  <mat-card class="card">
+    <mat-card-content>
+      <mat-list>
+        <div class="header">
+          <mat-card-subtitle>{{ carChild.make }}</mat-card-subtitle>
+          <mat-card-title>{{ carChild.model }}</mat-card-title>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-list-item><b>Distance:</b> {{ carChild.distance }}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><b>Year:</b> {{ carChild.year }}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item><b>Fuel Type:</b> {{ carChild.fuel_type }}</mat-list-item
+        ><mat-divider></mat-divider>
+        <mat-list-item
+          ><b>Transmission:</b> {{ carChild.transmission }}</mat-list-item
+        >
+        <mat-divider></mat-divider>
+        <mat-list-item
+          ><b>Expected Value:</b> {{ carChild.expectedValue }}</mat-list-item
+        >
+        <mat-divider></mat-divider>
+        <mat-list-item class="input-container"
+          ><b>Estimated Value: {{ carChild.estimatedValue }} </b></mat-list-item
+        >
+      </mat-list>
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-progress-bar mode="determinate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</div>

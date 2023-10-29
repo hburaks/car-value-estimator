@@ -17,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CardComponent } from './body/stepper/card/card.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CarsService } from './services/cars.service';
+import { CardEstimatedComponent } from './body/stepper/card-estimated/card-estimated.component';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, BodyComponent],
@@ -32,9 +33,12 @@ import { CarsService } from './services/cars.service';
     MatFormFieldModule,
     MatCardModule,
     CardComponent,
+    CardEstimatedComponent,    
     HttpClientModule,
   ],
   providers: [CarsService],
   bootstrap: [AppComponent],
+  exports: [
+  ]
 })
 export class AppModule {}

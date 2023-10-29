@@ -23,7 +23,5 @@ fuel_type: string;
 - send request ile sayfana gönder valueları ve diğer sayfada kart olarak bu değerleri oluşturup onaylıyor musunuz? de. Eğer onaylarsa database e gönder ve değer al dönüş olarak.
 - Bu değeri de sonuç ekranında göster
 
-1- giriş değerlerini güncelle ve bunu bir interface üzerinden al. Interface yapısını öğren.
-2- ikinci sayfada bir kart oluştur.
 3- ikinci sayfanın sonuçlarında post işlemi yap onaya bağlı.
 4- geri dönüş değerini de ekleyerek sonucu kard olarak göster 3. sayfada. istek gönderildikten sonra bir yükleniyor simgesi konulabilir kart içerisinde.?

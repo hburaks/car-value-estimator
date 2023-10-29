@@ -5,24 +5,17 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { Car } from 'src/app/interfaces/car';
 import { MatListModule } from '@angular/material/list';
-import {
-  FormBuilder,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
-import { CarsService } from 'src/app/services/cars.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CommonModule } from '@angular/common';
 
 /**
  * @title Card with footer
  */
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.css'],
+  selector: 'app-card-estimated',
+  templateUrl: './card-estimated.component.html',
+  styleUrls: ['./card-estimated.component.css'],
   standalone: true,
   imports: [
     MatCardModule,
@@ -35,21 +28,17 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    CommonModule
   ],
 })
-export class CardComponent {
+export class CardEstimatedComponent {
   @Input() carChild!: Car;
 
   constructor() {}
 
   expectedValue: number = parseInt('');
-  expectedValueVisible: boolean = true;
 
   sendCarWithExpected(sendCarWithExpected: any) {
     this.emitExpectedCarValue.emit(parseInt(sendCarWithExpected));
-    this.expectedValue = parseInt(sendCarWithExpected);
-    this.expectedValueVisible = false;
   }
 
   @Output() emitExpectedCarValue = new EventEmitter<number>();
