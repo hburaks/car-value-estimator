@@ -1,24 +1,36 @@
+.step-container {
+  width: 100%;
+}
+.stepper {
+  max-width: 60rem;
+  margin-top: 1rem;
+  margin: 1rem auto;
+}
 .form {
   display: flex;
   justify-content: center;
   flex-direction: column;
-
+  max-width: 40rem;
   margin: 0 auto;
 }
 
-.card {
-  margin: 16px;
-}
-
 .input-card {
-  max-width: 600px;
   width: 100%;
-  margin: 16px;
-  padding: 16px;
+  padding: 1rem 1.5rem;
 }
-
+.-margin {
+  margin-bottom: -1rem;
+}
+.margin-top {
+  margin-top: 1rem;
+}
+.table-container {
+  overflow: auto;
+}
 table {
   margin-top: 16px;
   width: 100%;
+  border-collapse: collapse;
   border-radius: 5px;
+  box-shadow: none;
 }
